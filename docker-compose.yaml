@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "6000:6000"
+    depends_on:
+      - postgres
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+    command: npm run dev
+  
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: samir
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: techkraftdb
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+
